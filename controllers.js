@@ -107,33 +107,31 @@ const upvoteFeedback = async (req, res) => {
 
 // Получение списка предложений с фильтрацией, сортировкой и пагинацией
 const getFeedbacks = async (req, res) => {
-    try {
-      const { category, status, sortBy = 'created_at', order = 'desc', page = 1, limit = 10 } = req.query;
-  
-      let queryText = 'SELECT * FROM feedback';
-      const filters = [];
-      const values = [];
-  
-      if (category) {
-        filters.push('category = $' + (values.length + 1));
-        values.push(category);
-      }
-      if (status) {
-        filters.push('status = $' + (values.length + 1));
-        values.push(status);
-      }
-      if (filters.length > 0) {
-        queryText += ' WHERE ' + filters.join(' AND ');
-      }
-  
-      queryText += ` ORDER BY ${sortBy} ${order} LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
-      values.push(limit, (page - 1) * limit);
-  
-      const result = await query(queryText, values);
-      res.json(result.rows);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+    const { category, status, sortBy = 'created_at', order = 'desc', page, limit} = req.query;
+    
+    if(page <= 0 || limit <= 0) res.status(404).json({ error: err.message == "Can't find these pages" })
+
+    let queryText = 'SELECT * FROM feedback';
+    const filters = [];
+    const values = [];
+
+    if (category) {
+      filters.push('category = $' + (values.length + 1));
+      values.push(category);
     }
+    if (status) {
+      filters.push('status = $' + (values.length + 1));
+      values.push(status);
+    }
+    if (filters.length > 0) {
+      queryText += ' WHERE ' + filters.join(' AND ');
+    }
+
+    queryText += ` ORDER BY ${sortBy} ${order} LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
+    values.push(limit, (page - 1) * limit);
+
+    const result = await query(queryText, values);
+    res.json(result.rows);
 };
 
   // Получение списка категорий и статусов
