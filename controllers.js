@@ -160,8 +160,8 @@ const registerRoutes = (app) => {
     app.get('/auth/user', authMiddleware, getUserById);
     app.patch('/auth/avatar', authMiddleware, updateAvatar);
   
-    app.post('/feedback', authMiddleware, createFeedback);
-    app.get('/feedback', getFeedbacks);
+    app.post('/feedback/post', authMiddleware, createFeedback);
+    app.get('/feedback/get', getFeedbacks);
   
     app.post('/feedback/upvote', authMiddleware, upvoteFeedback);
   
