@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const { query } = require('./db');
 const multer = require('multer');
 const path = require('path');
-const { default: ApiGatewayService } = require('moleculer-web');
 
 // Регистрация пользователя, можно добавить куда больше полей, но у нас простенький сервис по обратной связи, перегружать его, думаю, лишнее
 const register = async (req, res) => {
@@ -81,7 +80,6 @@ const updateAvatar = (req, res) => {
       const avatarPath = `/uploads/${req.file.filename}`;
       await query('UPDATE users SET avatar = $1 WHERE id = $2', [avatarPath, req.user_id]);
       res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
-      
   });
 };
 

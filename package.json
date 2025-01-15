@@ -1,5 +1,5 @@
 {
-  "name": "feedback_service",
+  "name": "feedback-service",
   "version": "1.0.0",
   "description": "ТЗ для Bothub",
   "main": "index.js",
