@@ -1,13 +1,13 @@
 {
-  "name": "feedback_task",
+  "name": "feedback_service",
   "version": "1.0.0",
   "description": "ТЗ для Bothub",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Uxorsh",
-  "license": "ISC",
+  "author": "ItsEasy7",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
